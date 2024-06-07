@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+</head>
+<body>
+    <div class="main_container">
+        <div class="column">
+            <h3 class="column_title">ToDo</h3>
+            <div class="column__card" draggable="true">
+                <div class="column__card-content">Вот тут будут прописаны задачи</div>
+                <button class="column__card-button"></button>
+            </div>
+            <div class="adding_card">
+                <textarea class="column__card-content_add" autocomplete="on" placeholder="Запишите задачу"></textarea>
+                <button class="add_card">Add card</button>
+            </div>
+        </div>
+        <div class="column">
+            <h3 class="column_title">In progress</h3>
+        </div>
+        <div class="column">
+            <h3 class="column_title">Done</h3>
+        </div>
+    </div>
+</body>
+</html>
