@@ -5,11 +5,16 @@ const columns = document.querySelectorAll('.column')
 const columnTitle = document.querySelector('.column_title')
 const mainContainer = document.querySelector('.main_container')
 let actualCard = null;
-const tasks = document.querySelectorAll('.column__card')
 
 addButton.addEventListener('click', function() {
     const newColumnCard = document.createElement('div');
-    columnTitle.insertAdjacentHTML("afterEnd", '<div class="column__card" draggable="true"><div class="column__card-content">Здесь будут прописаны задачи</div><button class="column__card-button"></button></div>')
+    newColumnCard.classList.add('column__card');
+    newColumnCard.draggable = true;
+    newColumnCard.id = Math.random().toString(36).substring(2);
+    newColumnCard.innerHTML = '<div class="column__card-content">Здесь будут прописаны задачи</div><button class="column__card-button"></button>';
+    columnTitle.insertAdjacentElement("afterEnd", newColumnCard);
+    newColumnCard.addEventListener('dragstart', dragStart);
+    newColumnCard.addEventListener('dragend', dragEnd);
 });
 
 mainContainer.addEventListener('click', function(event) {
@@ -21,7 +26,8 @@ mainContainer.addEventListener('click', function(event) {
     } 
 });
 
-function dragStart () {
+function dragStart (e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
     this.classList.add("is-dragging");
 };
 
@@ -42,11 +48,6 @@ function dragOver (e) {
     e.preventDefault();
 };
 
-tasks.forEach(task => {
-    task.addEventListener('dragstart', dragStart);
-    task.addEventListener('dragend', dragEnd);
-});
-
 for (const column of columns) {
     column.addEventListener('dragenter', dragEnter);
     column.addEventListener('dragleave', dragLeave);
@@ -57,6 +58,7 @@ for (const column of columns) {
 function drop (e) {
     e.preventDefault();
     this.classList = 'column'
-    this.append(task)
+    const id = e.dataTransfer.getData('text/plain');
+    const draggableElement = document.getElementById(id);
+    this.append(draggableElement);
 };
-
